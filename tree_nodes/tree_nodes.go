@@ -1,29 +1,24 @@
 package tree_nodes
 
-// TreeNode Definition for a binary tree node.
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import "alhoritms/common"
 
-func CountNodes(root *TreeNode) int {
-	if root == nil{
+func CountNodes(root *common.TreeNode) int {
+	if root == nil {
 		return 0
 	}
-	queue := make([]*TreeNode, 0)
+	queue := make([]*common.TreeNode, 0)
 	queue = append(queue, root)
-	count:= 1
-	for len(queue) > 0{
-		top:=queue[0]
+	count := 1
+	for len(queue) > 0 {
+		top := queue[0]
 		queue = queue[1:]
 
-		if top.Left != nil{
+		if top.Left != nil {
 			queue = append(queue, top.Left)
 			count++
 		}
 
-		if top.Right != nil{
+		if top.Right != nil {
 			queue = append(queue, top.Right)
 			count++
 		}
@@ -31,4 +26,3 @@ func CountNodes(root *TreeNode) int {
 	return count
 
 }
-

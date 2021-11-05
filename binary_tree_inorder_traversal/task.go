@@ -1,21 +1,16 @@
 package binary_tree_inorder_traversal
 
-// TreeNode Definition for a binary tree node.
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import "alhoritms/common"
 
-func (t TreeNode) inorderTraversal(root *TreeNode) []int {
+func inorderTraversal(root *common.TreeNode) []int {
 	var result []int
 	if root != nil {
 		if root.Left != nil {
-			result = append(result, t.inorderTraversal(root.Left)...)
+			result = append(result, inorderTraversal(root.Left)...)
 		}
 		result = append(result, root.Val)
 		if root.Right != nil {
-			result = append(result, t.inorderTraversal(root.Right)...)
+			result = append(result, inorderTraversal(root.Right)...)
 		}
 	}
 	return result

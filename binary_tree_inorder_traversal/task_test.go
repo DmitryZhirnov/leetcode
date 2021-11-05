@@ -1,24 +1,25 @@
 package binary_tree_inorder_traversal
 
 import (
+	"alhoritms/common"
 	"fmt"
 	"testing"
 )
 
 func TestTask(t *testing.T) {
-	root:= &TreeNode{
+	root := &common.TreeNode{
 		Left: nil,
-		Right: &TreeNode{
-			Left: &TreeNode{
+		Right: &common.TreeNode{
+			Left: &common.TreeNode{
 				Right: nil,
-				Left: nil,
-				Val: 3,
+				Left:  nil,
+				Val:   3,
 			},
 			Right: nil,
-			Val: 2,
+			Val:   2,
 		},
 		Val: 1,
 	}
-	result := root.inorderTraversal(root)
+	result := inorderTraversal(root)
 	fmt.Println(result)
 }
