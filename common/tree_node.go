@@ -7,6 +7,11 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 // Fill Заполнение двоичного дерева из массива
 func Fill(vertices []int, root *TreeNode, level int) *TreeNode {
 	if len(vertices) > level {
@@ -27,4 +32,17 @@ func Fill(vertices []int, root *TreeNode, level int) *TreeNode {
 	}
 
 	return root
+}
+
+// FillLinkedList Заполнение связанного списка
+func FillLinkedList(items []int, index int) *ListNode {
+	var linkedList *ListNode
+	if index < len(items) {
+		current := &ListNode{
+			Val:  items[index],
+			Next: FillLinkedList(items, index+1),
+		}
+		linkedList = current
+	}
+	return linkedList
 }
