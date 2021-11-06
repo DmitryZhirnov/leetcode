@@ -5,61 +5,38 @@ import (
 )
 
 func addTwoNumbers(l1 *common.ListNode, l2 *common.ListNode) *common.ListNode {
-	values1 := getValues(l1)
-	values2 := getValues(l2)
-	values1, values2 = appendZero(values1, values2)
-	result := sumArrays(values1, values2)
-	return FillLinkedList(result, 0)
-}
-
-func sumArrays(values1 []int, values2 []int) []int {
-	var result []int
-	var discharge, sum int
-	for i := 0; i < len(values1); i++ {
-		sum = values1[i] + values2[i] + discharge
-		result = append(result, sum%10)
-		if sum > 9 {
-			discharge = 1
+	discharge := 0
+	list := &common.ListNode{
+		Val:  0,
+		Next: nil,
+	}
+	current := list
+	for l1 != nil || l2 != nil || discharge != 0 {
+		var val1, val2 int
+		if l1 != nil {
+			val1 = l1.Val
 		} else {
-			discharge = 0
+			val1 = 0
 		}
-	}
-	if discharge == 1 {
-		result = append(result, discharge)
-	}
-	return result
-}
-
-func appendZero(values1 []int, values2 []int) ([]int, []int) {
-	if len(values1) > len(values2) {
-		zeros := make([]int, len(values1)-len(values2))
-		values2 = append(values2, zeros...)
-	} else {
-		zeros := make([]int, len(values2)-len(values1))
-		values1 = append(values1, zeros...)
-	}
-	return values1, values2
-}
-
-func getValues(l *common.ListNode) []int {
-
-	var values = []int{l.Val}
-	for l.Next != nil {
-		values = append(values, l.Next.Val)
-		l = l.Next
-	}
-	return values
-}
-
-// FillLinkedList Заполнение связанного списка
-func FillLinkedList(items []int, index int) *common.ListNode {
-	var linkedList *common.ListNode
-	if index < len(items) {
-		current := &common.ListNode{
-			Val:  items[index],
-			Next: FillLinkedList(items, index+1),
+		if l2 != nil {
+			val2 = l2.Val
+		} else {
+			val2 = 0
 		}
-		linkedList = current
+		sum := val1 + val2 + discharge
+		discharge = sum / 10
+		val := sum % 10
+		current.Next = &common.ListNode{
+			Val:  val,
+			Next: nil,
+		}
+		if l1 != nil {
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			l2 = l2.Next
+		}
+		current = current.Next
 	}
-	return linkedList
+	return list.Next
 }
