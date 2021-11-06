@@ -5,38 +5,35 @@ import (
 )
 
 func addTwoNumbers(l1 *common.ListNode, l2 *common.ListNode) *common.ListNode {
-	discharge := 0
-	list := &common.ListNode{
-		Val:  0,
-		Next: nil,
+	return addTwoNumbersRecursive(l1, l2, 0)
+}
+
+func addTwoNumbersRecursive(l1 *common.ListNode, l2 *common.ListNode, discharge int) *common.ListNode {
+	if l1 == nil && l2 == nil && discharge == 0 {
+		return nil
 	}
-	current := list
-	for l1 != nil || l2 != nil || discharge != 0 {
-		var val1, val2 int
-		if l1 != nil {
-			val1 = l1.Val
-		} else {
-			val1 = 0
-		}
-		if l2 != nil {
-			val2 = l2.Val
-		} else {
-			val2 = 0
-		}
-		sum := val1 + val2 + discharge
-		discharge = sum / 10
-		val := sum % 10
-		current.Next = &common.ListNode{
-			Val:  val,
-			Next: nil,
-		}
-		if l1 != nil {
-			l1 = l1.Next
-		}
-		if l2 != nil {
-			l2 = l2.Next
-		}
-		current = current.Next
+	var val1, val2 int
+	if l1 != nil {
+		val1 = l1.Val
+	} else {
+		val1 = 0
 	}
-	return list.Next
+	if l2 != nil {
+		val2 = l2.Val
+	} else {
+		val2 = 0
+	}
+	if l1 != nil {
+		l1 = l1.Next
+	}
+	if l2 != nil {
+		l2 = l2.Next
+	}
+	sum := val1 + val2 + discharge
+	val := sum % 10
+	discharge = sum / 10
+	return &common.ListNode{
+		Val:  val,
+		Next: addTwoNumbersRecursive(l1, l2, discharge),
+	}
 }
