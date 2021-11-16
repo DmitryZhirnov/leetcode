@@ -13,14 +13,12 @@ func lengthOfLongestSubstring(s string) int {
 		end = index
 		if position, ok := mapTable[letter]; ok && position >= start {
 			start = mapTable[letter] + 1
-			mapTable[letter] = index
 		} else {
-			mapTable[letter] = index
 			if max < end-start+1 {
 				max = end - start + 1
 			}
 		}
-		println(start, end, letter, max)
+		mapTable[letter] = index
 	}
 	return max
 }
