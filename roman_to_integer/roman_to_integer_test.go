@@ -35,6 +35,11 @@ func TestRomanToInteger(t *testing.T) {
 	expected = 944
 	assertEqual(input, result, expected, t)
 
+	input = "MMMCMXLIV"
+	result = romanToInt(input)
+	expected = 3944
+	assertEqual(input, result, expected, t)
+
 }
 
 func assertEqual(input string, result int, expected int, t *testing.T) {
